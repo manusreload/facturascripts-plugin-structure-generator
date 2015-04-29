@@ -49,7 +49,7 @@
     &lt;columna&gt;
         &lt;nombre&gt;{$value['Field']}&lt;/nombre&gt;
         &lt;tipo&gt;{$fsc->parseType($value['Type'])}&lt;/tipo&gt;
-        &lt;nulo&gt;{$value['Null']}&lt;/nulo&gt; {if="$value['Default'] != '' "}
+        &lt;nulo&gt;{$value['Null']}&lt;/nulo&gt; {if="$value['Default'] != '' || $value['Extra'] != '' "}
         &lt;defecto&gt;{$fsc->parseDefault($fsc->table, $value)}&lt;/defecto&gt;{/if}
     &lt;/columna&gt;
 {/loop}

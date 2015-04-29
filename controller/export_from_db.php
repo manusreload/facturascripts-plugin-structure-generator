@@ -53,7 +53,7 @@ where
 
     public function parseDefault($table, $item)
     {
-        if($item['Extra'] == "auto_increment")
+        if(strtolower($item['Extra']) == "auto_increment")
         {
             return "nextval('{$table}_{$item['Field']}_seq'::regclass)";
         }
@@ -99,7 +99,6 @@ where
             'cuentasbcopro',
             'dircliente',
             'dirproveedore',
-            'equipo',
             'facturacione',
             'facturascli',
             'facturasprov',
