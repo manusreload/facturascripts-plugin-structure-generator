@@ -85,19 +85,22 @@ class {$fsc->model} extends fs_model
 {/loop}
 {loop="$fsc->foreign"}{if="$fsc->validModel($fsc->parseModel($value['table']))"}
     /**
-    * @var {$fsc->parseModel($value['table'])}
+    * @var {$fsc->parseModel($value['table'])} {$fsc->parseModel($value['table'])}
     */
     var ${$fsc->parseModel($value['table'])};
 {/if}{/loop}
     public function __construct($data=FALSE)
     {
-        parent::__construct('{$fsc->table}');
+        $pluginname = str_replace(realpath(".") . "/", "",  realpath(__DIR__ . "/..") ) . "/";
+        parent::__construct('{$fsc->table}', $pluginname);
+        {loop="$fsc->foreign"}{if="$fsc->validModel($fsc->parseModel($value['table']))"}
+        $this->{$fsc->parseModel($value['table'])} = $this->{$fsc->parseModel($value['table'])}->get($data['{$value['key']}']);
+{/if}{/loop}
         if($data)
         {
 {loop="$fsc->items"}
             $this->{$value['Field']} = {$fsc->evalFunction($value['Type'],  $value['Field'])};{/loop}
 {loop="$fsc->foreign"}{if="$fsc->validModel($fsc->parseModel($value['table']))"}
-            $this->{$fsc->parseModel($value['table'])} = new {$fsc->parseModel($value['table'])}();
             $this->{$fsc->parseModel($value['table'])} = $this->{$fsc->parseModel($value['table'])}->get($data['{$value['key']}']);
 {/if}{/loop}
         }
