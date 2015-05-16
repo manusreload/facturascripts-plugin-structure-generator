@@ -191,13 +191,17 @@ class {$fsc->model} extends fs_model
         return $this->parse($this->db->exec("SELECT * FROM {noparse}{$this->table_name}{/noparse} WHERE {$primary} = '$cod'"));
     }
     {/if}
-    public function get_all($offset=0, $limit=FS_ITEM_LIMIT)
+    public function get_all_offset($offset=0, $limit=FS_ITEM_LIMIT)
     {
-        return $this->parse($this->db->select_limit("SELECT * FROM {noparse}{$this->table_name}{/noparse} {if="$primary"}ORDER BY {$primary} DESC{/if}", $limit, $offset));
+        return $this->parse($this->db->select_limit("SELECT * FROM {noparse}{$this->table_name}{/noparse} {if="$primary"}ORDER BY {$primary} DESC{/if}", $limit, $offset), true);
     }
-    public function parse($items)
+    public function get_all()
     {
-        if(count($items) > 1)
+        return $this->parse($this->db->select("SELECT * FROM {noparse}{$this->table_name}{/noparse} {if="$primary"}ORDER BY {$primary} DESC{/if}"), true);
+    }
+    public function parse($items, $array = false)
+    {
+        if(count($items) > 1 || $array)
         {
             $list = array();
             foreach($items as $item)
@@ -206,7 +210,7 @@ class {$fsc->model} extends fs_model
             }
             return $list;
         }
-        else if(count($items) == 0)
+        else if(count($items) == 1)
         {
             return new {$fsc->model}($items[0]);
         }
