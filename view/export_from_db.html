@@ -146,7 +146,7 @@ class {$fsc->model} extends fs_model
             if($this->{$primary})
             {
                 $sql = "UPDATE {noparse}{$this->table_name}{/noparse} SET {loop="$fsc->items"}{if="$counter++ > 0"}, {/if}{$value['Field']} = " . $this->var2str($this->{$value['Field']}) . "
-                        {/loop}  WHERE {$primary} = $value)";
+                        {/loop}  WHERE {$primary} = $value";
                 return $this->db->exec($sql);
             }
             {else}
@@ -188,7 +188,7 @@ class {$fsc->model} extends fs_model
     public function get($cod)
     {
         $cod = $this->var2str($cod);
-        return $this->parse($this->db->exec("SELECT * FROM {noparse}{$this->table_name}{/noparse} WHERE {$primary} = '$cod'"));
+        return $this->parse($this->db->select("SELECT * FROM {noparse}{$this->table_name}{/noparse} WHERE {$primary} = $cod"));
     }
     {/if}
     public function get_all_offset($offset=0, $limit=FS_ITEM_LIMIT)
