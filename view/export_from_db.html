@@ -193,7 +193,7 @@ class {$fsc->model} extends fs_model
     {/if}
     public function get_all($offset=0, $limit=FS_ITEM_LIMIT)
     {
-        return $this->parse($this->db->select_limit("SELECT * FROM {noparse}{$this->table_name}{/noparse} {if="$primary"}ORDER BY {$primary} DESC{/if}", $offset, $limit));
+        return $this->parse($this->db->select_limit("SELECT * FROM {noparse}{$this->table_name}{/noparse} {if="$primary"}ORDER BY {$primary} DESC{/if}", $limit, $offset));
     }
     public function parse($items)
     {
