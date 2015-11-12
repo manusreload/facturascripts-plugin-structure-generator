@@ -11,7 +11,7 @@ class export_from_db extends fs_controller
     var $table;
     var $foreign;
     var $all;
-    protected function process()
+    protected function private_core()
     {
         $this->all = $_GET['all'];
         if(!isset($_GET['table']))
@@ -64,7 +64,10 @@ where
     {
         if(substr($model, strlen($model) - 1) == "s")
         {
-            return substr($model, 0, strlen($model) - 1);
+            $tmp = substr($model, 0, strlen($model) - 1);
+            if($this->validModel($tmp)) return $tmp;
+            $tmp = substr($model, 0, strlen($model) - 2);
+            if($this->validModel($tmp)) return $tmp;
         }
         return $model;
     }
@@ -98,8 +101,8 @@ where
             'cuentasbcocli',
             'cuentasbcopro',
             'dircliente',
-            'dirproveedore',
-            'facturacione',
+            'dirproveedores',
+            'facturaciones',
             'facturascli',
             'facturasprov',
             'formaspago',
@@ -114,7 +117,7 @@ where
             'lineasivafactcli',
             'lineasregstock',
             'paise',
-            'proveedore',
+            'proveedores',
             'sectore',
             'secuenciasejercicio',
             'tecnico');

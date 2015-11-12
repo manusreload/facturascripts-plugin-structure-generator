@@ -94,7 +94,7 @@ class {$fsc->model} extends fs_model
         $pluginname = str_replace(realpath(".") . "/", "",  realpath(__DIR__ . "/..") ) . "/";
         parent::__construct('{$fsc->table}', $pluginname);
         {loop="$fsc->foreign"}{if="$fsc->validModel($fsc->parseModel($value['table']))"}
-        $this->{$fsc->parseModel($value['table'])} = $this->{$fsc->parseModel($value['table'])}->get($data['{$value['key']}']);
+        $this->{$fsc->parseModel($value['table'])} = new {$fsc->parseModel($value['table'])}();
 {/if}{/loop}
         if($data)
         {
